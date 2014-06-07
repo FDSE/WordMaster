@@ -34,14 +34,14 @@ public class WordStorePanel extends JPanel
 				 
 		 table1.setForeground(Color.blue);
 		 table2.setForeground(Color.blue);
-		 tablePanel1.getHorizontalScrollBar().setBackground(Color.blue);
+		 tablePanel1.getHorizontalScrollBar().setBackground(Color.GRAY);
 		 tablePanel1.getVerticalScrollBar().setOpaque(false);
 		 tablePanel2.getVerticalScrollBar().setOpaque(false);
 		 
 		 table1.getTableHeader().setForeground(Color.yellow);
-		 table1.getTableHeader().setBackground(Color.blue);
+		 table1.getTableHeader().setBackground(Color.GRAY);
 		 table2.getTableHeader().setForeground(Color.yellow);
-		 table2.getTableHeader().setBackground(Color.blue);
+		 table2.getTableHeader().setBackground(Color.GRAY);
 		 
 	    table1.addFocusListener(tl);
 	    table2.addFocusListener(ttl);

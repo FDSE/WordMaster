@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 import javax.swing.text.Caret;
@@ -13,15 +15,20 @@ import javax.swing.text.PlainView;
 
 
 
+
+
 import com.sun.awt.AWTUtilities.*;
 
-public class Helloframe extends JFrame implements MouseListener, MouseMotionListener{
+public class Helloframe extends JFrame implements Observer,MouseListener, MouseMotionListener{
 
+	WordStoreButton wordstorebutton;
+	WordStorePanel wordstorepanel;
+	JPanel pnMidR=null;
 	private Point loc = null;    
 	private Point tmp = null;    
 	private boolean isDragged = false;
 	ImagePanel impn = null;
-	
+	ProcessModel process=null;
 	JPanel pnTop = null;
 	
 	JPanel pnClose = null;
@@ -52,7 +59,8 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 	JPanel pnLog2 = null;
 	CardLayout cardLog2 = null;
 	JLabel lb19, lb20, lb21;
-	
+
+		
 	JPanel pnLeft = null;
 	JPanel pnMul = null;
 	CardLayout cardMul = null;
@@ -73,12 +81,14 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 	
 	JLabel lbdown = null;
 	JWindow jwinAcc = null;
+	JPanel P=null;
 	public static void main(String[] args) {
 		new Helloframe();
 	}
 	
 	public Helloframe() {
-		
+		process=new ProcessModel();
+		process.addObserver(this);
 		Image im1 = new ImageIcon("src/image/morning.jpg").getImage();
 		Image im2 = new ImageIcon("src/image/noon.jpg").getImage();
 		Image im3 = new ImageIcon("src/image/1.jpg").getImage();
@@ -101,8 +111,12 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		ImageIcon ic8 = new ImageIcon("src/image/btn_set_hover.png");
 		ImageIcon ic9 = new ImageIcon("src/image/btn_set_press.png");
 		ImageIcon ic10 = new ImageIcon("src/image/button1.png");
+		ic10.setImage(ic10.getImage().getScaledInstance(100, 20, Image.SCALE_DEFAULT));
 		ImageIcon ic11 = new ImageIcon("src/image/button3.png");
+		ic11.setImage(ic11.getImage().getScaledInstance(100, 20, Image.SCALE_DEFAULT));
+		
 		ImageIcon ic12 = new ImageIcon("src/image/button1.png");
+		ic12.setImage(ic12.getImage().getScaledInstance(100, 20, Image.SCALE_DEFAULT));
 		ImageIcon ic13 = new ImageIcon("src/image/corner_back.png");
 		ImageIcon ic14 = new ImageIcon("src/image/corner_back_hover.png");
 		ImageIcon ic15 = new ImageIcon("src/image/corner_back_press.png");
@@ -110,8 +124,11 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		ImageIcon ic17 = new ImageIcon("src/image/corner_right_hover.png");
 		ImageIcon ic18 = new ImageIcon("src/image/corner_right_press.png");
 		ImageIcon ic19 = new ImageIcon("src/image/button4.png");
+		ic19.setImage(ic19.getImage().getScaledInstance(100, 20, Image.SCALE_DEFAULT));
 		ImageIcon ic20 = new ImageIcon("src/image/button2.png");
+		ic20.setImage(ic20.getImage().getScaledInstance(100, 20, Image.SCALE_DEFAULT));
 		ImageIcon ic21 = new ImageIcon("src/image/button4.png");
+		ic21.setImage(ic21.getImage().getScaledInstance(100, 20, Image.SCALE_DEFAULT));
 		
 		lb1 = new JLabel(ic1);
 		lb2 = new JLabel(ic2);
@@ -123,8 +140,11 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		lb8 = new JLabel(ic8);
 		lb9 = new JLabel(ic9);
 		lb10 = new JLabel(ic10);
+		//lb10.setSize(20, 10);
 		lb11 = new JLabel(ic11);
+		//lb11.setSize(20, 10);
 		lb12 = new JLabel(ic12);
+		//lb12.setSize(20, 10);
 		lb13 = new JLabel(ic13);
 		lb14 = new JLabel(ic14);
 		lb15 = new JLabel(ic15);
@@ -132,8 +152,11 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		lb17 = new JLabel(ic17);
 		lb18 = new JLabel(ic18);
 		lb19 = new JLabel(ic19);
+		//lb19.setSize(20, 10);
 		lb20 = new JLabel(ic20);
+		//lb20.setSize(20, 10);
 		lb21 = new JLabel(ic21);
+		//lb21.setSize(20, 10);
 		
 		cardClose = new CardLayout();
 		pnClose = new JPanel(cardClose);
@@ -161,6 +184,7 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		
 		cardLog = new CardLayout();
 		pnLog = new JPanel(cardLog);
+		//pnLog.setSize(20, 10);
 		pnLog.addMouseListener(this);
 		pnLog.setOpaque(false);
 		pnLog.add(lb10, "10");
@@ -169,6 +193,7 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		
 		cardLog2 = new CardLayout();
 		pnLog2 = new JPanel(cardLog2);
+		//pnLog2.setSize(20, 10);
 		pnLog2.addMouseListener(this);
 		pnLog2.setOpaque(false);
 		pnLog2.add(lb19, "19");
@@ -215,7 +240,7 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		
 		pnSouth.add(pnMid, "Center");
 		
-		JPanel pnMidR = new JPanel(new BorderLayout());
+		pnMidR = new JPanel(new BorderLayout());
 		pnMidR.setOpaque(false);
 		pnMidR.setBackground(Color.cyan);
 		pnMid.add(pnMidR/*, "Center"*/);
@@ -250,7 +275,7 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		jtf.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		iptx.add(jtf);
 		pnLin.add(iptx);
-		pntx.add(pnLin);
+		
 		
 		lbdown = new JLabel(new ImageIcon("src/image/direct_down.png"));
 		lbdown.addMouseListener(this);
@@ -258,7 +283,7 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		
 		JLabel lbZhuCe = new JLabel(new ImageIcon("src/image/zhuce.png"));
 		pntx.add(lbZhuCe, "East");
-		
+		pntx.add(pnLin);
 		
 		JPanel pnps = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
 		pnps.setOpaque(false);
@@ -278,7 +303,6 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		jpsw.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		ipps.add(jpsw);
 		pnLin2.add(ipps);
-		pnps.add(pnLin2);
 		
 		JLabel lbKeyB = new JLabel(new ImageIcon("src/image/keyboard.png"));
 		ipps.add(lbKeyB, "East");
@@ -286,7 +310,7 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		JLabel lbMima = new JLabel(new ImageIcon("src/image/mima_press.png"));
 		pnps.add(lbMima, "East");
 		
-		
+		pnps.add(pnLin2);
 		JPanel pnD = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
 		pnD.setOpaque(false);
 		pnMidR.add(pnD, "South");
@@ -294,13 +318,15 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 		
 		
 		
-		Image imBelow = new ImageIcon("src/image/below.png").getImage();
+		Image imBelow = new ImageIcon("//src/image/below.png").getImage();
 		pnBelow = new ImagePanel(imBelow);
 		pnBelow.setLayout(new BorderLayout(0, 20));
 		
-		JPanel P=new JPanel(new FlowLayout(FlowLayout.CENTER,0,5));
+		P=new JPanel(new FlowLayout(FlowLayout.CENTER,0,5));
 		P.add(pnLog);
+		P.add(new JLabel("               "));
 		P.add(pnLog2);
+		P.setOpaque(false);
 		
 		pnBelow.add(pnLeft, "West");
 		pnBelow.add(P, "Center");
@@ -343,17 +369,7 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 			jwinAcc.setLocation(iptx.getLocationOnScreen().x, iptx.getLocationOnScreen().y+iptx.getHeight()+2);
 			jwinAcc.setVisible(true);
 		} else if(sou == pnLog) {
-			this.setSize(500, 450);
-			impn.setIm(new ImageIcon("src/image/7.jpg").getImage());
-			WordStorePanel wordstorepanel=new WordStorePanel();
-			wordstorepanel.setOpaque(false);
-			pnSouth.remove(pnMid);
-			pnMid = new JPanel();
-			pnMid.setOpaque(false);
-			pnMid.add(wordstorepanel);
-			pnSouth.add(pnMid, "Center");
-			pnSouth.validate();
-			this.repaint();
+			process.changeModel(1);
 		}
 		else if(sou==pnLog2)
 		{
@@ -475,6 +491,47 @@ public class Helloframe extends JFrame implements MouseListener, MouseMotionList
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		if ((Integer)arg1==1)
+		{
+			this.setSize(500, 450);
+			impn.setIm(new ImageIcon("src/image/7.jpg").getImage());
+			wordstorepanel=new WordStorePanel();
+			wordstorepanel.setOpaque(false);
+			wordstorebutton=new WordStoreButton(process);
+			wordstorebutton.setOpaque(false);
+			pnBelow.remove(P);	
+			pnMid.remove(pnMidR);
+			pnMid.add(wordstorepanel);
+			pnMid.validate();
+			pnBelow.add(wordstorebutton,"Center");
+			pnBelow.validate();		
+			this.repaint();
+		}
+		if ((Integer)arg1==0)
+		{
+			this.setSize(500, 300);
+			impn.setIm(new ImageIcon("src/image/1.jpg").getImage());
+			pnBelow.remove(wordstorebutton);
+			pnMid.remove(wordstorepanel);
+			pnBelow.add(P,"Center");
+			pnMid.add(pnMidR);
+			pnBelow.validate();
+			pnMid.validate();
+			this.repaint();
+		}
+		if ((Integer)arg1==2)
+		{
+		   impn.setIm(new ImageIcon("src/image/8.jpg").getImage());
+		   pnBelow.remove(wordstorebutton);
+		   pnMid.remove(wordstorepanel);
+		   pnBelow.add(new , index)
+		}
+		
 	}
 
 }
