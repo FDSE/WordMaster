@@ -6,11 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 
 
 
-public class WordBaseModel {
+public class WordBaseModel extends Observable{
 	LinkedList<WordModel> wordlist=new LinkedList<WordModel>();
 	int sumnum=0;
 	int recitednum=0;
@@ -38,6 +39,51 @@ public class WordBaseModel {
 		}
 		
 	}
+	public void setWordNum()
+	{
+		if (!setCountWord(Integer.parseInt(ReadDat.wordcount)))
+		{
+			wordcount=sumnum-currentwordindex;
+		}
+		else
+		{
+			wordcount=Integer.parseInt(ReadDat.wordcount);
+		}
+	}
+	public String judgeWhereToStart()
+	{
+		if (ReadDat.currentwordstatus.equals("continue"))
+		{
+			if (recitednum==0)
+			{
+				currentwordindex=0;
+				return "此词库还未背诵过，不能继续，系统已自动从第一个单词开始";
+			}
+			else
+			{
+				return "设置成功，系统将自动从上次开始";
+			}
+		}
+		else if (ReadDat.currentwordstatus.equals("initial"))
+		{
+			currentwordindex=0;
+			return "设置成功，系统将自动从首单词开始";
+		}
+		else
+		{
+			int i;
+			if (setCurrentWord(ReadDat.currentword))
+			{
+				return "设置成功，系统将自动从"+ReadDat.currentword+"开始";
+			}
+			else 
+			{
+				currentwordindex=0;
+				return "未找到此单词，系统已自动从第一个单词开始";
+			}
+		}
+	}
+
 	public boolean setCurrentWord(String word)
 	{
 		for (int i=0;i<sumnum;i++)
@@ -65,15 +111,13 @@ public class WordBaseModel {
 				recitednum++;
 				unrecitednum--;
 				rightnum++;
-			}
-			if (wordmodel.getIfCorrect().equals("1"))
-			{
-				
+				wordmodel.setIfCorrect("1");
 			}
 			if (wordmodel.getIfCorrect().equals("2"))
 			{
 				rightnum++;
 				wrongnum--;
+				wordmodel.setIfCorrect("1");
 			}
 			rightcount++;
 			return true;
@@ -85,15 +129,9 @@ public class WordBaseModel {
 				recitednum++;
 				unrecitednum--;
 				wrongnum++;
+				wordmodel.setIfCorrect("2");
 			}
-			if (wordmodel.getIfCorrect().equals("1"))
-			{
-				
-			}
-			if (wordmodel.getIfCorrect().equals("2"))
-			{
-				
-			}
+			
 			wrongcount++;
 			return false;
 		}
@@ -165,7 +203,7 @@ public class WordBaseModel {
 		FileReader in = new FileReader(fileName);
 		BufferedReader buf = new BufferedReader(in);
 		String temp;
-		while((temp=buf.readLine()).charAt(0)!=letter.toLowerCase().charAt(0))
+		while((temp=buf.readLine()).charAt(0)!=letter.toLowerCase().charAt(0));
 		do
 		{
 			readWord(temp);
@@ -202,7 +240,7 @@ public class WordBaseModel {
 		                 
 		                   english = english + c[i];
 		             }
-		             if( c[i] != ' '&&flag == 1)
+		             if( c[i]!='#'&&c[i] != ' '&&flag == 1)
 		             {
 		             	chinese = chinese +c[i];
 		             	
@@ -219,7 +257,7 @@ public class WordBaseModel {
 		      }	
 			WordModel model=new WordModel();
 			model.setChineseMean(chinese);
-			model.setChineseMean(english);
+			model.setEnglishMean(english);
 			model.setIfCorrect(ifcorrect);
 			wordlist.add(sumnum, model);
 		

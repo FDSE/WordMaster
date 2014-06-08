@@ -120,6 +120,7 @@ public class WordStoreButton extends JPanel implements MouseListener, MouseMotio
 		if (sou==pnLog3)
 		{
 			process.changeModel(2);
+			
 		}
 		else if (sou==pnLog4)
 		{

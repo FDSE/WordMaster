@@ -103,7 +103,7 @@ class RadioButtonListener implements ActionListener
     		if(e.getSource()==jrb1)
     		 {
     		 	jrb1.setEnabled(true);
-    		 	order = 1;
+    		 	ReadDat.currentwordstatus="continue";
     		 	textPanel.setVisible(false);
     		 	wordCountText.setText("");
     		 }
@@ -111,7 +111,7 @@ class RadioButtonListener implements ActionListener
     		if(e.getSource()==jrb2)
     		 {
     		 	jrb2.setEnabled(true);
-    		 	order = 2;
+    		 	ReadDat.currentwordstatus="initial";
     		 	textPanel.setVisible(false);
     		 	wordCountText.setText("");
     		 }
@@ -119,7 +119,7 @@ class RadioButtonListener implements ActionListener
     		if(e.getSource()==jrb3)
     		 {
     		 	jrb3.setEnabled(true);
-    		 	order = 3;
+    		 	ReadDat.currentwordstatus="defined";
     		 	textPanel.setVisible(true);
     		 }
     	}
@@ -130,12 +130,19 @@ class TextListen implements DocumentListener
 {
 	public void insertUpdate(DocumentEvent e)
 	{
-		//ReadDat.wordCount = Integer.parseInt(wordCountText.getText());
+		ReadDat.currentword = wordCountText.getText();
 		//System.out.println(ReadDat.wordCount+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	}
-	public void removeUpdate(DocumentEvent e){}
+	public void removeUpdate(DocumentEvent e)
+	{
+		ReadDat.currentword = wordCountText.getText();
+	}
 	
-	public void changedUpdate(DocumentEvent e){}
+	public void changedUpdate(DocumentEvent e)
+	{
+		ReadDat.currentword = wordCountText.getText();
+		
+	}
 }
 
 ////////////////////////////////////////////////////////////

@@ -1,4 +1,6 @@
 import java.awt.GridLayout;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -6,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class WordRecitePanel extends JPanel{
+public class WordRecitePanel extends JPanel implements Observer{
 	JPanel chinesepanel;
 	JPanel textpanel;
 	JPanel otherpanel;
@@ -15,8 +17,10 @@ public class WordRecitePanel extends JPanel{
 	JLabel chinese;
 	JTextField text;
 	JLabel judge,count;
-	WordRecitePanel()
+	WordRecitePanel(ProcessModel o)
 	{
+		ProcessModel process=o;
+		process.basemodel.addObserver(this);
 		judgepanel=new JPanel();
 		countpanel=new JPanel();
 		this.setLayout(new GridLayout(3,1));
@@ -27,10 +31,10 @@ public class WordRecitePanel extends JPanel{
 		otherpanel=new JPanel();
 		otherpanel.setLayout(new GridLayout(1,2));
 		chinese=new JLabel();
-		chinese.setText("中文意译");
+		chinese.setText(process.basemodel.wordlist.get(process.basemodel.currentwordindex).getChineseMean());
 		text=new JTextField();
-		judge=new JLabel("Correct!");
-		count=new JLabel("50 words left");
+		judge=new JLabel("             ");
+		count=new JLabel(process.basemodel.wordcount+" words left");
 		chinesepanel.add(chinese);
 		chinesepanel.add(new JLabel("             "));
 		textpanel.add(text);
@@ -41,6 +45,11 @@ public class WordRecitePanel extends JPanel{
 		this.add(textpanel);
 		this.add(otherpanel);
 		this.setBorder(BorderFactory.createTitledBorder("单词测试"));
+	}
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -111,7 +111,7 @@ public void setCountModel()
 			table = (JTable)e.getSource();
 			table.addMouseListener(new MousePressListener());
 			
-		    //mousePressCount = table.getSelectedRow();
+		    mousePressCount = table.getSelectedRow();
 		    		
 			
 			
@@ -135,69 +135,11 @@ public void setCountModel()
 			  
 			mousePressCount = table.getSelectedRow();
 			else
-			
+			{
 		    wordChooseCount =table.getSelectedRow();
-			
-		}
-			
-	
-	 }
-           
-	}
-}
-
-;i++)
-		{
-			name[0] = (char)('A'+i )+ "´Ê¿â";
-			model2.insertRow(i,name);
-		}
-		table2.setModel(model2);
-	    columnModel1.getColumn(0).setPreferredWidth(125);
-	    table2.setColumnModel(columnModel1);
-		
-	}
-
-///////////////////////////////////////////////////////////
-/////////////////
-
-
-	//////////////////////////////////////////////////
-	////////////±í¼àÌý
-	class  tableListener implements FocusListener
-	{
-		JTable table;
-		public void focusGained(FocusEvent e)
-		{
-			table = (JTable)e.getSource();
-			table.addMouseListener(new MousePressListener());
-			
-		    //mousePressCount = table.getSelectedRow();
-		    		
-			
-			
-		}
-		
-		 public void focusLost(FocusEvent e)
-       {
-         
-         getSelectName();
-       }
-       
-       
-       /////////////////////////////////////////
-	///////Êó±ê¼àÌý
-	class    MousePressListener extends MouseAdapter
-	{
-		
-		public void mousePressed(MouseEvent e)
-		{ 
-			if(table == table1)
-			  
-			mousePressCount = table.getSelectedRow();
-			else
-			
-		    wordChooseCount =table.getSelectedRow();
-			
+		    ReadDat.row=wordChooseCount;
+		    ReadDat.letter=""+((char)('A'+wordChooseCount));
+			}
 		}
 			
 	

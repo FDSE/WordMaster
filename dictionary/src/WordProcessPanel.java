@@ -35,6 +35,8 @@ public class WordProcessPanel extends JPanel{
 	    progressBar.setStringPainted(true);
 	    progressBar.setMaximum(1000);
         activity = new SimulatedActivity(1000);
+        String result=o.basemodel.judgeWhereToStart();
+        ReadDat.result=result;
         new Thread(activity).start();
         activityMonitor = new Timer(500, new
                 ActionListener()
@@ -54,7 +56,8 @@ public class WordProcessPanel extends JPanel{
                       
                       else if (current>400)
                       {
-                    	  label.setText("单词载入成功，等待进入设置词数页面...");
+                    	 
+                    	  label.setText(ReadDat.result);
                         
                       }
                    }

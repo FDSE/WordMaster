@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,6 +13,7 @@ import javax.swing.*;
 import javax.swing.text.Caret;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.PlainView;
+
 
 
 
@@ -528,9 +530,17 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		}
 		if ((Integer)arg1==2)
 		{
+			
 		   impn.setIm(new ImageIcon("src/image/8.jpg").getImage());
 		   P.removeAll();
 		   pnMid.removeAll();
+		   try {
+		    
+			pnMid.add(new WordStatisticPanel(ReadDat.letter));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		   P.add(new WordStatisticButton(process));
 		   pnMid.validate();
 		   P.validate();
@@ -538,6 +548,14 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		}
 		if ((Integer)arg1==3)
 		{
+			try {
+				WordBaseModel a=new WordBaseModel(ReadDat.letter);
+				process.basemodel=a;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			impn.setIm(new ImageIcon("src/image/9.jpg").getImage());
 			P.removeAll();
 			pnMid.removeAll();
@@ -549,6 +567,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		}
 		if ((Integer)arg1==4)
 		{
+			
 			impn.setIm(new ImageIcon("src/image/11.jpg").getImage());
 			P.removeAll();
 			pnMid.removeAll();
@@ -562,7 +581,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			impn.setIm(new ImageIcon("src/image/10.jpg").getImage());
 			P.removeAll();
 			pnMid.removeAll();
-			pnMid.add(new WordNumPanel());
+			pnMid.add(new WordNumPanel(process));
 			P.add(new WordNumButton(process));
 			P.validate();
 			pnMid.validate();
@@ -574,7 +593,8 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			impn.setIm(new ImageIcon("src/image/12.jpg").getImage());
 			P.removeAll();
 			pnMid.removeAll();
-			pnMid.add(new WordRecitePanel());
+			process.basemodel.setWordNum();
+			pnMid.add(new WordRecitePanel(process));
 			P.add(new WordReciteButton(process));
 			P.validate();
 			pnMid.validate();
