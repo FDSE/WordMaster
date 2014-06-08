@@ -17,10 +17,16 @@ public class WordRecitePanel extends JPanel{
 	JLabel judge,count;
 	WordRecitePanel()
 	{
+		judgepanel=new JPanel();
+		countpanel=new JPanel();
 		this.setLayout(new GridLayout(3,1));
+		chinesepanel=new JPanel();
 		chinesepanel.setLayout(new GridLayout(1,2));
+		textpanel=new JPanel();
 		textpanel.setLayout(new GridLayout(1,2));
+		otherpanel=new JPanel();
 		otherpanel.setLayout(new GridLayout(1,2));
+		chinese=new JLabel();
 		chinese.setText("÷–Œƒ“‚“Î");
 		text=new JTextField();
 		judge=new JLabel("Correct!");

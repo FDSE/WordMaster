@@ -568,7 +568,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			pnMid.validate();
 			this.repaint();
 		}
-		/*
+		
 		if ((Integer)arg1==6)
 		{
 			impn.setIm(new ImageIcon("src/image/12.jpg").getImage());
@@ -579,7 +579,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			P.validate();
 			pnMid.validate();
 			this.repaint();
-		}*/
+		}
 		
 	}
 
