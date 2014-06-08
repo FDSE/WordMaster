@@ -103,6 +103,7 @@ class RadioButtonListener implements ActionListener
     		 	jrb1.setEnabled(true);
     		 	order = 1;
     		 	textPanel.setVisible(false);
+    		 	wordCountText.setText("");
     		 }
     		 
     		if(e.getSource()==jrb2)
@@ -110,6 +111,7 @@ class RadioButtonListener implements ActionListener
     		 	jrb2.setEnabled(true);
     		 	order = 2;
     		 	textPanel.setVisible(false);
+    		 	wordCountText.setText("");
     		 }
     		 
     		if(e.getSource()==jrb3)

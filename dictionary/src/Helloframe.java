@@ -504,34 +504,49 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			wordstorepanel.setOpaque(false);
 			wordstorebutton=new WordStoreButton(process);
 			wordstorebutton.setOpaque(false);
-			pnBelow.remove(P);	
-			pnMid.remove(pnMidR);
+			P.removeAll();
+			pnMid.removeAll();
 			pnMid.add(wordstorepanel);
 			pnMid.validate();
-			pnBelow.add(wordstorebutton,"Center");
-			pnBelow.validate();		
+			P.add(wordstorebutton,"Center");
+			P.validate();		
 			this.repaint();
 		}
 		if ((Integer)arg1==0)
 		{
 			this.setSize(500, 300);
 			impn.setIm(new ImageIcon("src/image/1.jpg").getImage());
-			pnBelow.remove(wordstorebutton);
-			pnMid.remove(wordstorepanel);
-			pnBelow.add(P,"Center");
+			P.removeAll();
+			pnMid.removeAll();
+			P.add(pnLog);
+			P.add(new JLabel("               "));
+			P.add(pnLog2);
 			pnMid.add(pnMidR);
-			pnBelow.validate();
+			P.validate();
 			pnMid.validate();
 			this.repaint();
 		}
 		if ((Integer)arg1==2)
 		{
 		   impn.setIm(new ImageIcon("src/image/8.jpg").getImage());
-		   pnBelow.remove(wordstorebutton);
-		   pnMid.remove(wordstorepanel);
-		   pnBelow.add(new , index)
+		   P.removeAll();
+		   pnMid.removeAll();
+		   P.add(new WordStatisticButton(process));
+		   pnMid.validate();
+		   P.validate();
+		   this.repaint();
 		}
-		
+		if ((Integer)arg1==3)
+		{
+			impn.setIm(new ImageIcon("src/image/9.jpg").getImage());
+			P.removeAll();
+			pnMid.removeAll();
+			pnMid.add(new WordSetPanel());
+			P.add(new WordSetButton(process));
+			P.validate();
+			pnMid.validate();
+			this.repaint();
+		}
 	}
 
 }
