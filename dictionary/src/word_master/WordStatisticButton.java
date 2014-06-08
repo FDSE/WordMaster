@@ -1,3 +1,5 @@
+package word_master;
+
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;

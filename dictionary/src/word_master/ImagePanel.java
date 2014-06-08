@@ -1,4 +1,4 @@
-
+package word_master;
 
 import java.awt.*;
 

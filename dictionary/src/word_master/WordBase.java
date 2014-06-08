@@ -1,10 +1,12 @@
+package word_master;
+
 import java.io.*;
 
 public class WordBase
 {
 	String[] wordBaseName;
 	
-	  String[] getDatName()
+	  public String[] getDatName()
 	{
 		
 		File f = new File(ReadDat.filePath);
@@ -37,7 +39,7 @@ public class WordBase
     
     ////////////////////////////////////////////////////////////////
     //////////////////È¥µôºó×º
-    String getName(String s)
+    public String getName(String s)
     {
     	String temp = "";
     	int i = 0;

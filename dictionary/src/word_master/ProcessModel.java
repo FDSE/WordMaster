@@ -1,4 +1,9 @@
+<<<<<<< HEAD:dictionary/src/ProcessModel.java
 import java.awt.GridLayout;
+=======
+package word_master;
+
+>>>>>>> FETCH_HEAD:dictionary/src/word_master/ProcessModel.java
 import java.util.Observable;
 
 

@@ -1,3 +1,5 @@
+package word_master;
+
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -16,9 +18,12 @@ import javax.swing.JPanel;
 
 
 
-public class WordSetButton extends JPanel implements MouseListener, MouseMotionListener{
+public class WordStoreButton extends JPanel implements MouseListener, MouseMotionListener{
 	
-    ProcessModel process;
+	ProcessModel process=null;
+	JPanel pnLog3 = null;
+	CardLayout cardLog3 = null;
+	JLabel lb22, lb23, lb24;
 	
 	JPanel pnLog4 = null;
 	CardLayout cardLog4 = null;
@@ -27,15 +32,21 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 	JPanel pnLog5 = null;
 	CardLayout cardLog5 = null;
 	JLabel lb28, lb29, lb30;
-	WordSetButton(ProcessModel o)
+	WordStoreButton(ProcessModel o)
 	{
 		process=o;
+		ImageIcon ic22 = new ImageIcon("src/image/button5.png");
+		ic22.setImage(ic22.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
+		ImageIcon ic23 = new ImageIcon("src/image/button6.png");
+		ic23.setImage(ic23.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
+		ImageIcon ic24 = new ImageIcon("src/image/button5.png");
+		ic24.setImage(ic24.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
 		
-		ImageIcon ic25 = new ImageIcon("src/image/button11.png");
+		ImageIcon ic25 = new ImageIcon("src/image/button7.png");
 		ic25.setImage(ic25.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic26 = new ImageIcon("src/image/butto12.png");
+		ImageIcon ic26 = new ImageIcon("src/image/button8.png");
 		ic26.setImage(ic26.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic27 = new ImageIcon("src/image/button11.png");
+		ImageIcon ic27 = new ImageIcon("src/image/button7.png");
 		ic27.setImage(ic27.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
 		
 		ImageIcon ic28 = new ImageIcon("src/image/button9.png");
@@ -45,7 +56,10 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 		ImageIcon ic30 = new ImageIcon("src/image/button9.png");
 		ic30.setImage(ic30.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
 		
-	
+		lb22 = new JLabel(ic22);
+		lb23 = new JLabel(ic23);
+		lb24 = new JLabel(ic24);
+		
 		lb26 = new JLabel(ic26);
 		lb27 = new JLabel(ic27);
 		lb25 = new JLabel(ic25);
@@ -55,7 +69,15 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 		lb30 = new JLabel(ic30);
 		
 	
-
+		
+		cardLog3 = new CardLayout();
+		pnLog3 = new JPanel(cardLog3);
+		//pnLog.setSize(20, 10);
+		pnLog3.addMouseListener(this);
+		pnLog3.setOpaque(false);
+		pnLog3.add(lb22, "22");
+		pnLog3.add(lb23, "23");
+		pnLog3.add(lb24, "24");
 		
 		cardLog4 = new CardLayout();
 		pnLog4 = new JPanel(cardLog4);
@@ -76,6 +98,8 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 		pnLog5.add(lb30, "30");
 		
 		this.setLayout((new FlowLayout(FlowLayout.CENTER,0,5)));
+		this.add(pnLog3);
+		this.add(new JLabel("       "));
 		this.add(pnLog4);
 		this.add(new JLabel("       "));
 		this.add(pnLog5);
@@ -95,13 +119,17 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		Object sou = arg0.getSource();
-		if (sou==pnLog4)
+		if (sou==pnLog3)
 		{
-			process.changeModel(4);
+			process.changeModel(2);
+		}
+		else if (sou==pnLog4)
+		{
+			process.changeModel(3);
 		}
 		else if(sou==pnLog5)
 		{
-			process.changeModel(1);
+			process.changeModel(0);
 		}
 		// TODO Auto-generated method stub
 		
@@ -109,7 +137,10 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		Object sou = arg0.getSource();
-		if (sou==pnLog4)
+		if(sou == pnLog3) {
+			cardLog3.show(pnLog3, "23");
+		}
+		else if (sou==pnLog4)
 		{
 			cardLog4.show(pnLog4, "26");
 		}
@@ -123,7 +154,10 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		Object sou = arg0.getSource();
-		if (sou==pnLog4)
+		if(sou == pnLog3) {
+			cardLog3.show(pnLog3, "22");
+		}
+		else if (sou==pnLog4)
 		{
 			cardLog4.show(pnLog4, "25");
 		}
@@ -137,7 +171,10 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		Object sou = arg0.getSource();
-		if (sou==pnLog4)
+		if(sou == pnLog3) {
+			cardLog3.show(pnLog3, "24");
+		}
+		else if (sou==pnLog4)
 		{
 			cardLog4.show(pnLog4, "27");
 		}
@@ -151,7 +188,10 @@ public class WordSetButton extends JPanel implements MouseListener, MouseMotionL
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		Object sou = arg0.getSource();
-		if (sou==pnLog4)
+		if(sou == pnLog3) {
+			cardLog3.show(pnLog3, "23");
+		}
+		else if (sou==pnLog4)
 		{
 			cardLog4.show(pnLog4, "26");
 		}
