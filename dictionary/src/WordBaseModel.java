@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,15 +18,103 @@ public class WordBaseModel {
 	int wrongnum=0;
 	int rightnum=0;
 	int currentwordindex=0;
+	
+	//²»´æÈëµÄ
+	int wordcount=0;
+	int rightcount=0;
+	int wrongcount=0;
+	
+	String localletter;
 	WordBaseModel(String letter) throws IOException
 	{
+		localletter=letter;
 		if (findRecordText(letter))
 		{
 			inputFromRecord(letter);
 		}
 		else
 		{
-			inputFromDictionary();
+			inputFromDictionary(letter);
+		}
+		
+	}
+	public boolean setCurrentWord(String word)
+	{
+		for (int i=0;i<sumnum;i++)
+		{
+			if (wordlist.get(i).getEnglishMean().equals(word))
+			{
+				currentwordindex=i;
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean ifEnd()
+	{
+		return (wordcount==0);
+	}
+	public boolean judgeWord(String word)
+	{
+		WordModel wordmodel=wordlist.get(currentwordindex);
+		String englishmeaning=wordmodel.getEnglishMean();
+		if (word.equals(englishmeaning))
+		{
+			if (wordmodel.getIfCorrect().equals("0"))
+			{
+				recitednum++;
+				unrecitednum--;
+				rightnum++;
+			}
+			if (wordmodel.getIfCorrect().equals("1"))
+			{
+				
+			}
+			if (wordmodel.getIfCorrect().equals("2"))
+			{
+				rightnum++;
+				wrongnum--;
+			}
+			rightcount++;
+			return true;
+		}
+		else
+		{
+			if (wordmodel.getIfCorrect().equals("0"))
+			{
+				recitednum++;
+				unrecitednum--;
+				wrongnum++;
+			}
+			if (wordmodel.getIfCorrect().equals("1"))
+			{
+				
+			}
+			if (wordmodel.getIfCorrect().equals("2"))
+			{
+				
+			}
+			wrongcount++;
+			return false;
+		}
+	}
+	public void nextWord()
+	{
+		currentwordindex++;
+		wordcount--;
+	}
+	public boolean setCountWord(int count)
+	{
+		int wordleft=sumnum-currentwordindex;
+		if (count<=wordleft)
+		{
+			wordcount=count;
+			return true;
+		}
+		else
+		{
+			wordcount=wordleft;
+			return false;
 		}
 		
 	}
@@ -69,18 +158,21 @@ public class WordBaseModel {
 		}
 		in.close();
 	}
-	public void inputFromDictionary() throws IOException
+	public void inputFromDictionary(String letter) throws IOException
 	{
 		String fileName;
 		fileName =ReadDat.filePath + ReadDat.fileName + ".txt";
 		FileReader in = new FileReader(fileName);
 		BufferedReader buf = new BufferedReader(in);
 		String temp;
-		while((temp=buf.readLine())!=null)
+		while((temp=buf.readLine()).charAt(0)!=letter.toLowerCase().charAt(0))
+		do
 		{
 			readWord(temp);
 			sumnum++;
 		}
+		while((temp=buf.readLine())!=null);
+		unrecitednum=sumnum;
 		in.close();
 	}
 	public void readWord(String temp)
@@ -132,6 +224,23 @@ public class WordBaseModel {
 			wordlist.add(sumnum, model);
 		
 		
+	}
+	public void outputRecord() throws IOException
+	{
+		FileWriter fw = new FileWriter("src/record/record-"+localletter+".txt");
+		fw.write(""+sumnum+"\n");
+		fw.write(""+recitednum+"\n");
+		fw.write(""+unrecitednum+"\n");
+		fw.write(""+wrongnum+"\n");
+		fw.write(""+rightnum+"\n");
+		fw.write(""+currentwordindex+"\n");
+		for (int i=0;i<wordlist.size();i++)
+		{
+			fw.write(wordlist.get(i).getEnglishMean()+" "+wordlist.get(i).getChineseMean()+"#"+wordlist.get(i).getIfCorrect()+"\n");
+		}
+		fw.close();
+
+
 	}
 
 }

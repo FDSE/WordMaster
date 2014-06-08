@@ -76,7 +76,7 @@ public class WordSetPanel extends JPanel
 	 // this.add(checkBox2);
 	  wordCountText.getDocument().addDocumentListener(new TextListen());
 	  
-	  wordCountText.setText(String.valueOf(ReadDat.wordCount));	
+	  //wordCountText.setText(String.valueOf(ReadDat.wordCount));	
 	 // checkBox1.addActionListener(boxl);
 	//	checkBox2.addActionListener(boxl);
 		label2.setForeground(Color.yellow);
@@ -130,7 +130,7 @@ class TextListen implements DocumentListener
 {
 	public void insertUpdate(DocumentEvent e)
 	{
-		ReadDat.wordCount = Integer.parseInt(wordCountText.getText());
+		//ReadDat.wordCount = Integer.parseInt(wordCountText.getText());
 		//System.out.println(ReadDat.wordCount+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	}
 	public void removeUpdate(DocumentEvent e){}

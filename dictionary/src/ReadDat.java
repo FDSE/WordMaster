@@ -8,7 +8,7 @@ public class ReadDat
 	static String fileName = "dictionary";
 	static String filePath = "src/data/";
 	static String fileName1= "";
-	String english;
+}String english;
 	String chinese;
 	static int Count = 50;
 	int displayCount =50;
