@@ -2581,7 +2581,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#OwnedElements" type="integer">36</XPD:ATTR>
+<XPD:ATTR name="#OwnedElements" type="integer">37</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLClass" guid="vSpKKDqicE6UubvUamZx8gAA">
 <XPD:ATTR name="Name" type="string">MainFrame</XPD:ATTR>
 <XPD:REF name="Namespace">pyhiNz8YeU6R3kphcPLkyQAA</XPD:REF>
@@ -3281,6 +3281,67 @@
 <XPD:REF name="Views[1]">chTk5U5DIkKKuAocUh/q7gAA</XPD:REF>
 <XPD:REF name="Views[2]">sc7YmT0h60W9Vwh5Z2VV9wAA</XPD:REF>
 <XPD:REF name="Views[3]">fTRQUh3MqEK0Nl897qKNdAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedElements[36]" type="UMLActor" guid="/qbB56moRkeO25wCUdqeDwAA">
+<XPD:ATTR name="Name" type="string">User</XPD:ATTR>
+<XPD:REF name="Namespace">pyhiNz8YeU6R3kphcPLkyQAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">1</XPD:ATTR>
+<XPD:REF name="Instances[0]">+EwzNuYT8UqzsCP+JcEXywAA</XPD:REF>
+</XPD:OBJ>
+<XPD:ATTR name="#OwnedCollaborationInstanceSets" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="OwnedCollaborationInstanceSets[0]" type="UMLCollaborationInstanceSet" guid="UIgLUNbYH0unfB4vuFb2ZgAA">
+<XPD:ATTR name="Name" type="string">CollaborationInstanceSet1</XPD:ATTR>
+<XPD:REF name="RepresentedClassifier">pyhiNz8YeU6R3kphcPLkyQAA</XPD:REF>
+<XPD:ATTR name="#InteractionInstanceSets" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="InteractionInstanceSets[0]" type="UMLInteractionInstanceSet" guid="jFwyxaU2IUCAUHyHreFugwAA">
+<XPD:ATTR name="Name" type="string">InteractionInstanceSet1</XPD:ATTR>
+<XPD:REF name="Context">UIgLUNbYH0unfB4vuFb2ZgAA</XPD:REF>
+<XPD:ATTR name="#OwnedDiagrams" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="OwnedDiagrams[0]" type="UMLCollaborationDiagram" guid="rtrMmccL5EO4lOLGTNsRPAAA">
+<XPD:ATTR name="Name" type="string">CollaborationDiagram1</XPD:ATTR>
+<XPD:REF name="DiagramOwner">jFwyxaU2IUCAUHyHreFugwAA</XPD:REF>
+<XPD:OBJ name="DiagramView" type="UMLCollaborationDiagramView" guid="ggnHtZGAVUijfHVieccLOQAA">
+<XPD:REF name="Diagram">rtrMmccL5EO4lOLGTNsRPAAA</XPD:REF>
+<XPD:ATTR name="#OwnedViews" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="OwnedViews[0]" type="UMLColObjectView" guid="KIOvK8vOmUWsYEq/fgCGdQAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">100</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">120</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">70</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">76</XPD:ATTR>
+<XPD:REF name="Model">+EwzNuYT8UqzsCP+JcEXywAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="ZQ2gZNRSzkmZaQzVOKTHQwAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="jNuij8jt6UKZR/X1YZtJ9gAA">
+<XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : User</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="eXHH2j9MvEqyrDOuANrKMAAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="GF2OER0A1U+xMAz03FLnygAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="SlotCompartment" type="UMLSlotCompartmentView" guid="a4MYbfv180imWILNZHPEIAAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:REF name="Model">+EwzNuYT8UqzsCP+JcEXywAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+</XPD:OBJ>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:ATTR name="#ParticipatingInstances" type="integer">2</XPD:ATTR>
+<XPD:OBJ name="ParticipatingInstances[0]" type="UMLObject" guid="sEDup1V4a0SgI6VC/oaaZgAA">
+<XPD:REF name="CollaborationInstanceSet">UIgLUNbYH0unfB4vuFb2ZgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="ParticipatingInstances[1]" type="UMLObject" guid="+EwzNuYT8UqzsCP+JcEXywAA">
+<XPD:REF name="Classifier">/qbB56moRkeO25wCUdqeDwAA</XPD:REF>
+<XPD:REF name="CollaborationInstanceSet">UIgLUNbYH0unfB4vuFb2ZgAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
+<XPD:REF name="Views[0]">KIOvK8vOmUWsYEq/fgCGdQAA</XPD:REF>
+<XPD:REF name="Views[1]">a4MYbfv180imWILNZHPEIAAA</XPD:REF>
+</XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[2]" type="UMLModel" guid="udlQL9WBUECvDnCS+lUABAAA">
