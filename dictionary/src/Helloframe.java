@@ -547,6 +547,28 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			pnMid.validate();
 			this.repaint();
 		}
+		if ((Integer)arg1==4)
+		{
+			impn.setIm(new ImageIcon("src/image/11.jpg").getImage());
+			P.removeAll();
+			pnMid.removeAll();
+			pnMid.add(new WordProcessPanel(process));
+			P.validate();
+			pnMid.validate();
+			this.repaint();
+		}
+		if ((Integer)arg1==5)
+		{
+			impn.setIm(new ImageIcon("src/image/10.jpg").getImage());
+			P.removeAll();
+			pnMid.removeAll();
+			pnMid.add(new WordNumPanel());
+			P.add(new WordNumButton(process));
+			P.validate();
+			pnMid.validate();
+			this.repaint();
+		}
+		
 	}
 
 }
