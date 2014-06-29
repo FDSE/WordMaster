@@ -11,10 +11,10 @@ import javax.swing.event.DocumentListener;
 
 public class WordNumPanel extends JPanel{
 	JLabel label;
-	JTextField wordCountText;
+	static JTextField wordCountText;
 	JPanel textpanel;
 	JPanel labelpanel;
-	JLabel mention;
+	static JLabel mention;
 	JPanel mentionpanel;
 	ProcessModel process;
 	WordNumPanel(ProcessModel o)
@@ -25,10 +25,11 @@ public class WordNumPanel extends JPanel{
 		textpanel=new JPanel();
 		labelpanel=new JPanel();
 		mentionpanel=new JPanel();
-		mention=new JLabel("提示词");
-		mentionpanel.add(mention);
-		wordCountText=new JTextField();
+		mention=new JLabel();
 		
+		mentionpanel.add(mention);
+		wordCountText=new JTextField(10);
+		wordCountText.setText("");
 		wordCountText.getDocument().addDocumentListener(new TextListen());
 		label.setOpaque(false);
 		wordCountText.setOpaque(false);
@@ -45,28 +46,23 @@ public class WordNumPanel extends JPanel{
 		public void insertUpdate(DocumentEvent e)
 		{
 			ReadDat.wordcount= wordCountText.getText();
-			if (!process.basemodel.setCountWord(Integer.parseInt(ReadDat.wordcount)))
-			{
-				mention.setText("超过词数限制，将自动截取为最大词数！");
-			}
+			
 			//System.out.println(ReadDat.wordCount+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		}
 		public void removeUpdate(DocumentEvent e)
 		{
 			ReadDat.wordcount = wordCountText.getText();
-			if (!process.basemodel.setCountWord(Integer.parseInt(ReadDat.wordcount)))
-			{
-				mention.setText("超过词数限制，将自动截取为最大词数！");
-			}
+			
 		}
 		
 		public void changedUpdate(DocumentEvent e)
 		{
 			ReadDat.wordcount = wordCountText.getText();
+			/*
 			if (!process.basemodel.setCountWord(Integer.parseInt(ReadDat.wordcount)))
 			{
 				mention.setText("超过词数限制，将自动截取为最大词数！");
-			}
+			}*/
 			
 		}
 	}

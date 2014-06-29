@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.dom4j.DocumentException;
+
 
 
 
@@ -119,16 +121,31 @@ public class WordStoreButton extends JPanel implements MouseListener, MouseMotio
 		Object sou = arg0.getSource();
 		if (sou==pnLog3)
 		{
-			process.changeModel(2);
+			try {
+				process.changeModel(2);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		else if (sou==pnLog4)
 		{
-			process.changeModel(3);
+			try {
+				process.changeModel(3);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(sou==pnLog5)
 		{
-			process.changeModel(0);
+			try {
+				process.changeModel(0);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// TODO Auto-generated method stub
 		

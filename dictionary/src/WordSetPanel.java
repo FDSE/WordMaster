@@ -89,6 +89,7 @@ public class WordSetPanel extends JPanel
 		jrb1.setOpaque(false);
 		jrb2.setOpaque(false);
 		jrb3.setOpaque(false);
+		ReadDat.currentwordstatus="continue";
 		this.setBorder(BorderFactory.createTitledBorder("选择起始单词"));
 	}
 	

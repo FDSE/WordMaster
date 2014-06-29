@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.dom4j.DocumentException;
+
 
 
 
@@ -71,7 +73,12 @@ public class WordStatisticButton extends JPanel implements MouseListener, MouseM
 		Object sou = arg0.getSource();
         if(sou==pnLog5)
 		{
-			process.changeModel(1);
+			try {
+				process.changeModel(1);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// TODO Auto-generated method stub
 		

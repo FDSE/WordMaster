@@ -14,6 +14,8 @@ import javax.swing.text.Caret;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.PlainView;
 
+import org.dom4j.DocumentException;
+
 
 
 
@@ -371,7 +373,12 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			jwinAcc.setLocation(iptx.getLocationOnScreen().x, iptx.getLocationOnScreen().y+iptx.getHeight()+2);
 			jwinAcc.setVisible(true);
 		} else if(sou == pnLog) {
-			process.changeModel(1);
+			try {
+				process.changeModel(1);
+			} catch (DocumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(sou==pnLog2)
 		{
@@ -554,6 +561,9 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 			impn.setIm(new ImageIcon("src/image/9.jpg").getImage());
@@ -600,7 +610,58 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			pnMid.validate();
 			this.repaint();
 		}
-		
+		if ((Integer)arg1==7)
+		{
+			
+			//impn.setIm(new ImageIcon("src/image/12.jpg").getImage());
+			P.removeAll();
+			//pnMid.removeAll();
+			//process.basemodel.setWordNum();
+			//pnMid.add(new WordRecitePanel(process));
+			P.add(new WordReciteButton2(process));
+			P.validate();
+			//pnMid.validate();
+			this.repaint();
+		}
+		if ((Integer)arg1==8)
+		{
+			//impn.setIm(new ImageIcon("src/image/12.jpg").getImage());
+			P.removeAll();
+			//pnMid.removeAll();
+			//process.basemodel.setWordNum();
+			//pnMid.add(new WordRecitePanel(process));
+			P.add(new WordReciteButton(process));
+			P.validate();
+			//pnMid.validate();
+			this.repaint();
+		}
+		if ((Integer)arg1==9)
+		{
+			//impn.setIm(new ImageIcon("src/image/12.jpg").getImage());
+			P.removeAll();
+			//pnMid.removeAll();
+			//process.basemodel.setWordNum();
+			//pnMid.add(new WordRecitePanel(process));
+			P.add(new WordReciteButton3(process));
+			P.validate();
+			//pnMid.validate();
+			this.repaint();
+		}
+		if ((Integer)arg1==10)
+		{
+			//impn.setIm(new ImageIcon("src/image/12.jpg").getImage());
+			P.removeAll();
+			//pnMid.removeAll();
+			//process.basemodel.setWordNum();
+			//pnMid.add(new WordRecitePanel(process));
+			P.add(new WordStatisticButton(process));
+			pnMid.removeAll();
+			pnMid.add(new WordLastPanel(process));
+			P.validate();
+			pnMid.validate();
+			//pnMid.validate();
+			this.repaint();
+		}
 	}
 
 }

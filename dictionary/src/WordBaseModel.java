@@ -4,15 +4,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 
 
 
 public class WordBaseModel extends Observable{
-	LinkedList<WordModel> wordlist=new LinkedList<WordModel>();
+	LinkedList<WordModel> wordlist;
 	int sumnum=0;
 	int recitednum=0;
 	int unrecitednum=0;
@@ -26,8 +32,14 @@ public class WordBaseModel extends Observable{
 	int wrongcount=0;
 	
 	String localletter;
-	WordBaseModel(String letter) throws IOException
+	
+	WordBaseModel() {
+		wordlist=new LinkedList<WordModel>();
+	}
+	WordBaseModel(String letter) throws IOException, DocumentException
 	{
+		System.out.println(letter);
+		wordlist=new LinkedList<WordModel>();
 		localletter=letter;
 		if (findRecordText(letter))
 		{
@@ -39,6 +51,39 @@ public class WordBaseModel extends Observable{
 		}
 		
 	}
+	
+	public LinkedList<WordModel> getWordlist() {
+		return this.wordlist;
+	}
+	
+	public int getSumnum() {
+		return this.sumnum;
+	}
+	
+	public int getRecitednum() {
+		return this.recitednum;
+	}
+	
+	public int getUnrecitednum() {
+		return this.unrecitednum;
+	}
+	
+	public int getWrongnum() {
+		return this.wrongnum;
+	}
+	
+	public int getRightnum() {
+		return this.rightnum;
+	}
+	
+	public int getCurrentwordindex() {
+		return this.currentwordindex;
+	}
+	
+	public void setLocalletter(String letter) {
+		this.localletter = letter;
+	}
+	
 	public void setWordNum()
 	{
 		if (!setCountWord(Integer.parseInt(ReadDat.wordcount)))
@@ -52,8 +97,10 @@ public class WordBaseModel extends Observable{
 	}
 	public String judgeWhereToStart()
 	{
+		
 		if (ReadDat.currentwordstatus.equals("continue"))
 		{
+			
 			if (recitednum==0)
 			{
 				currentwordindex=0;
@@ -98,13 +145,13 @@ public class WordBaseModel extends Observable{
 	}
 	public boolean ifEnd()
 	{
-		return (wordcount==0);
+		return (wordcount==1);
 	}
 	public boolean judgeWord(String word)
 	{
 		WordModel wordmodel=wordlist.get(currentwordindex);
 		String englishmeaning=wordmodel.getEnglishMean();
-		if (word.equals(englishmeaning))
+		if ((word!=null)&&(word.equals(englishmeaning)))
 		{
 			if (wordmodel.getIfCorrect().equals("0"))
 			{
@@ -120,7 +167,18 @@ public class WordBaseModel extends Observable{
 				wordmodel.setIfCorrect("1");
 			}
 			rightcount++;
+			if (ifEnd())
+			{
+				setChanged();
+				notifyObservers(3);
+				return true;
+			}
+			else
+			{
+			setChanged();
+			notifyObservers(1);
 			return true;
+			}
 		}
 		else
 		{
@@ -133,13 +191,26 @@ public class WordBaseModel extends Observable{
 			}
 			
 			wrongcount++;
+			if (ifEnd())
+			{
+				setChanged();
+				notifyObservers(4);
+				return false;
+			}
+			else
+			{
+			setChanged();
+			notifyObservers(2);
 			return false;
+			}
 		}
 	}
 	public void nextWord()
 	{
 		currentwordindex++;
 		wordcount--;
+		setChanged();
+		notifyObservers(0);
 	}
 	public boolean setCountWord(int count)
 	{
@@ -155,6 +226,26 @@ public class WordBaseModel extends Observable{
 			return false;
 		}
 		
+	}
+	public boolean isNumber()
+	{
+		int i;
+		if (ReadDat.wordcount==null)
+		{
+			return false;
+		}
+		if (ReadDat.wordcount.charAt(0)=='0')
+		{
+			return false;
+		}
+		for (i=0;i<ReadDat.wordcount.length();i++)
+		{
+			if ((ReadDat.wordcount.charAt(i)<'0')||(ReadDat.wordcount.charAt(i)>'9'))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	public boolean findRecordText(String letter)
 	{
@@ -174,6 +265,7 @@ public class WordBaseModel extends Observable{
 	public void inputFromRecord(String letter) throws IOException
 	{
 		String fileName;
+		System.out.println(letter);
 		fileName ="src/record/record-"+letter+ ".txt";
 		FileReader in = new FileReader(fileName);
 		BufferedReader buf = new BufferedReader(in);
@@ -196,10 +288,52 @@ public class WordBaseModel extends Observable{
 		}
 		in.close();
 	}
-	public void inputFromDictionary(String letter) throws IOException
+	//TODO
+	public void inputFromDictionary(String letter) throws IOException, DocumentException
 	{
 		String fileName;
-		fileName =ReadDat.filePath + ReadDat.fileName + ".txt";
+		fileName =ReadDat.filePath + ReadDat.fileName + ".xml";
+	
+		File inputXml=new File(fileName);   
+		SAXReader saxReader = new SAXReader();  
+		Document document = saxReader.read(inputXml);
+		Element words=document.getRootElement(); 
+		for(Iterator i = words.elementIterator(); i.hasNext();){   
+			Element wordcell = (Element) i.next();
+			int k=0;
+			Element EnglishMean;
+			Element ChineseMean;
+			String english="";
+			String chinese="";
+			for(Iterator j = wordcell.elementIterator(); j.hasNext();){
+				//Element ChineseMean=(Element) j.next();  
+				if (k==0)
+				{
+					EnglishMean=(Element) j.next();//addToType(ChineseMean.getText());
+				    english=EnglishMean.getText();
+				}
+				if (k==1)
+				{
+					ChineseMean=(Element) j.next();
+					chinese=ChineseMean.getText();
+					if (isTheType(ChineseMean.getText()))
+					{
+						sumnum++;
+						WordModel model=new WordModel();
+						model.setChineseMean(chinese);
+						model.setEnglishMean(english);
+						model.setIfCorrect("0");
+						//System.out.println(model.getChineseMean());
+						wordlist.add(model);
+					}
+				}
+				k++;
+			}
+			unrecitednum=sumnum;
+		}
+		/*
+		String fileName;
+		fileName =ReadDat.filePath + ReadDat.fileName + ".xml";
 		FileReader in = new FileReader(fileName);
 		BufferedReader buf = new BufferedReader(in);
 		String temp;
@@ -207,12 +341,62 @@ public class WordBaseModel extends Observable{
 		do
 		{
 			readWord(temp);
+			System.out.println(temp);
 			sumnum++;
 		}
-		while((temp=buf.readLine())!=null);
+		while(((temp=buf.readLine())!=null)&&(temp.charAt(0)==letter.toLowerCase().charAt(0)));
 		unrecitednum=sumnum;
 		in.close();
+		*/
 	}
+	//TODO
+	public boolean isTheType(String chinMeaning)
+	{
+		if (chinMeaning.lastIndexOf('.')<0)
+		{
+	        return false;
+		}
+		String types=chinMeaning.substring(0, chinMeaning.lastIndexOf('.'));
+		int q;
+		for (q=0;q<types.length();q++)
+		{
+			
+			if ((types.charAt(q)=='.')&&((q==types.length()-1)||(types.charAt(q+1)!=',')))
+					break;
+		}
+		if (q<types.length())
+			types=types.substring(0, q);
+		
+		
+		int temp=0;
+		String singleMean;
+		int i;
+		for (i=0;i<types.length();i++)
+		{
+			if (types.charAt(i)=='.')
+			{
+				singleMean=types.substring(temp,i);
+				
+					if (ReadDat.letter.equals(singleMean))
+					{
+						return true;
+					}
+				
+				
+			}
+		}
+	
+		singleMean=types.substring(temp);
+	
+			if (ReadDat.letter.equals(singleMean))
+			{
+				return true;
+			}
+		
+		return false;
+	}
+
+	
 	public void readWord(String temp)
 	{
 		char []c = new char[100] ;
@@ -259,8 +443,9 @@ public class WordBaseModel extends Observable{
 			model.setChineseMean(chinese);
 			model.setEnglishMean(english);
 			model.setIfCorrect(ifcorrect);
-			wordlist.add(sumnum, model);
-		
+			//System.out.println(model.getChineseMean());
+			wordlist.add(model);
+		    
 		
 	}
 	public void outputRecord() throws IOException
@@ -271,13 +456,12 @@ public class WordBaseModel extends Observable{
 		fw.write(""+unrecitednum+"\n");
 		fw.write(""+wrongnum+"\n");
 		fw.write(""+rightnum+"\n");
-		fw.write(""+currentwordindex+"\n");
+		fw.write(""+((currentwordindex+1)%sumnum)+"\n");
 		for (int i=0;i<wordlist.size();i++)
 		{
 			fw.write(wordlist.get(i).getEnglishMean()+" "+wordlist.get(i).getChineseMean()+"#"+wordlist.get(i).getIfCorrect()+"\n");
 		}
 		fw.close();
-
 
 	}
 

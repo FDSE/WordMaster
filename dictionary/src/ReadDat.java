@@ -3,6 +3,8 @@ import java.util.*;
 import java.util.Random;
 public class ReadDat
 {
+	//TODO
+	static LinkedList<String> wordtype=new LinkedList<String>();
 	static String [] englishMean;
 	static String [] chineseMean;
 	static String fileName = "dictionary";
@@ -14,4 +16,5 @@ public class ReadDat
 	static String currentwordstatus;
 	static String result;
 	static String wordcount;
+	static String testword;
 }

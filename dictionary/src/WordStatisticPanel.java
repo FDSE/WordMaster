@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.io.BufferedReader;
@@ -30,6 +31,7 @@ public class WordStatisticPanel extends JPanel{
 	PieDataset dataset;
 	WordStatisticPanel(String letter) throws IOException
 	{
+		System.out.println(letter);
 		boolean find=false;
 		String[] recordname;
 		File f = new File("src/record/");
@@ -39,13 +41,16 @@ public class WordStatisticPanel extends JPanel{
 		{
 			if (recordname[i].equals("record-"+letter+".txt"))
 			{
+				System.out.println("aaaa");
 				find=true;
+				break;
 			}
 		}
 		if (i==recordname.length)
 			find=false;
 		if (find)
 		{
+			System.out.println("aaaa");
 			int unrecite,right,wrong;
 			String fileName;
 			fileName ="src/record/record-"+letter+ ".txt";
@@ -63,15 +68,17 @@ public class WordStatisticPanel extends JPanel{
 			temp=buf.readLine();
 			right=Integer.parseInt(temp);
 			temp=buf.readLine();
-			int sum=unrecite+wrong+right;
+			float sum=(float)(unrecite+wrong+right);
 			
 			
 			
 		DefaultPieDataset dataset1=new DefaultPieDataset();
-
-		dataset1.setValue("未背过单词数", unrecite);
-		dataset1.setValue("背错单词数", wrong);
-		dataset1.setValue("背对单词数", right);
+        float unrecite_f=unrecite/sum;
+        float wrong_f=wrong/sum;
+        float right_f=1-unrecite_f-wrong_f;
+		dataset1.setValue("未背过单词数", unrecite_f);
+		dataset1.setValue("背错单词数", wrong_f);
+		dataset1.setValue("背对单词数", right_f);
 		dataset=dataset1;
 		JFreeChart chart = ChartFactory.createPieChart("", dataset, true, true, false);
 		PiePlot plot = (PiePlot) chart.getPlot();// 
@@ -89,7 +96,7 @@ public class WordStatisticPanel extends JPanel{
 		Date date = new Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日");
 
-		TextTitle title = new TextTitle("截止" + sdf.format(date) + "空气质量状况分布图");
+		TextTitle title = new TextTitle("截止" + sdf.format(date) +letter+ "词库背单词状况");
 		chart.setTitle(title);
 		title.setFont(font);
 		FileOutputStream fos_jpg=new FileOutputStream("src/record/temp.jpg");
@@ -98,10 +105,7 @@ public class WordStatisticPanel extends JPanel{
         Image b=new ImageIcon("src/record/temp.jpg").getImage();
         
 		ImagePanel impn=new ImagePanel(b);
-        WordSetPanel a=new WordSetPanel();
-        impn.add(a);
-        a.setVisible(true);
-		
+        impn.setPreferredSize(new Dimension(200,300));
 		//ImagePanel impn=new ImagePanel(b);
 		//WordSetPanel a=new WordSetPanel();
         //impn.add(a);
@@ -113,7 +117,7 @@ public class WordStatisticPanel extends JPanel{
 		{
 			Image b=new ImageIcon("src/image/1.jpg").getImage();
 			ImagePanel impn=new ImagePanel(b);
-	        WordSetPanel a=new WordSetPanel();
+	        PadPanel a=new PadPanel();
 	        impn.add(a);
 	        a.setVisible(true);
 			

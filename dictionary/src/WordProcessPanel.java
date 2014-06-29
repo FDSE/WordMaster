@@ -10,6 +10,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
 
+import org.dom4j.DocumentException;
+
 
 public class WordProcessPanel extends JPanel{
 	 private ProcessModel process;
@@ -51,7 +53,12 @@ public class WordProcessPanel extends JPanel{
                       if (current == activity.getTarget())
                       {
                          activityMonitor.stop();
-                         process.changeModel(5);
+                         try {
+							process.changeModel(5);
+						} catch (DocumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
                       }
                       
                       else if (current>400)
@@ -103,7 +110,7 @@ class SimulatedActivity implements Runnable
       {
          while (current < target)
          {
-            Thread.sleep(10);
+            Thread.sleep(5);
             current++;
          }
       }

@@ -7,16 +7,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.dom4j.DocumentException;
 
 
 
-public class WordReciteButton extends JPanel implements MouseListener, MouseMotionListener{
+
+public class WordReciteButton extends JPanel implements Observer,MouseListener, MouseMotionListener{
 	
     ProcessModel process;
 	
@@ -27,15 +30,22 @@ public class WordReciteButton extends JPanel implements MouseListener, MouseMoti
 	JPanel pnLog5 = null;
 	CardLayout cardLog5 = null;
 	JLabel lb28, lb29, lb30;
+	
+	String button1="src/image/button15.png";
+	String button2="src/image/button16.png";
+	
+	ImageIcon ic25;
+	ImageIcon ic26;
+	ImageIcon ic27;
 	WordReciteButton(ProcessModel o)
 	{
 		process=o;
-		
-		ImageIcon ic25 = new ImageIcon("src/image/button13.png");
+		process.basemodel.addObserver(this);
+		ic25 = new ImageIcon(button1);
 		ic25.setImage(ic25.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic26 = new ImageIcon("src/image/butto14.png");
+		ic26 = new ImageIcon(button2);
 		ic26.setImage(ic26.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic27 = new ImageIcon("src/image/button13.png");
+		ic27 = new ImageIcon(button1);
 		ic27.setImage(ic27.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
 		
 		ImageIcon ic28 = new ImageIcon("src/image/button4.png");
@@ -97,11 +107,48 @@ public class WordReciteButton extends JPanel implements MouseListener, MouseMoti
 		Object sou = arg0.getSource();
 		if (sou==pnLog4)
 		{
-			process.changeModel(6);
+			process.basemodel.judgeWord(ReadDat.testword);
+			if (process.basemodel.ifEnd())
+			{
+				try {
+					process.changeModel(9);
+				} catch (DocumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+			try {
+				process.changeModel(7);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			/*
+			if (button1.equals("src/image/button15.png"))
+			{
+				process.basemodel.judgeWord(ReadDat.testword);
+			}
+			if (button1.equals("src/image/button13.png"))
+			{
+				process.basemodel.nextWord();
+			}
+			if (button1.equals("src/image/button17.png"))
+			{
+				process.changeModel(10);
+			}
+			*/
 		}
 		else if(sou==pnLog5)
 		{
-			process.changeModel(1);
+			try {
+				process.changeModel(1);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// TODO Auto-generated method stub
 		
@@ -161,6 +208,36 @@ public class WordReciteButton extends JPanel implements MouseListener, MouseMoti
 		}
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void update(Observable o, Object arg) {
+		/*
+		if ((Integer)arg==0)
+		{
+			System.out.print("aaa\n");
+			button1="src/image/button15.png";
+			button2="src/image/button16.png";
+		
+			this.repaint();
+		}
+		if (((Integer)arg>=1)&&((Integer)arg<=2))
+		{
+			System.out.print("bbb\n");
+			button1="src/image/button13.png";
+			button2="src/image/button14.png";
+		
+			this.repaint();
+		}
+		if ((Integer)arg>=3)
+		{
+			System.out.print("ccc\n");
+			button1="src/image/button17.png";
+			button2="src/image/button18.png";
+		
+			this.repaint();
+		}
+		// TODO Auto-generated method stub
+		*/
 	}
 	
 

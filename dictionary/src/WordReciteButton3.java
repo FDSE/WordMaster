@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,7 +20,7 @@ import org.dom4j.DocumentException;
 
 
 
-public class WordSetButton extends JPanel implements Observer,MouseListener, MouseMotionListener{
+public class WordReciteButton3 extends JPanel implements Observer,MouseListener, MouseMotionListener{
 	
     ProcessModel process;
 	
@@ -31,24 +32,28 @@ public class WordSetButton extends JPanel implements Observer,MouseListener, Mou
 	CardLayout cardLog5 = null;
 	JLabel lb28, lb29, lb30;
 	
-	String button1,button2;
-	WordSetButton(ProcessModel o)
+	String button1="src/image/button17.png";
+	String button2="src/image/button18.png";
+	
+	ImageIcon ic25;
+	ImageIcon ic26;
+	ImageIcon ic27;
+	WordReciteButton3(ProcessModel o)
 	{
 		process=o;
-		button1="src/image/button11.png";
-		button2="src/image/butto12.png";
-		ImageIcon ic25 = new ImageIcon(button1);
+		process.basemodel.addObserver(this);
+		ic25 = new ImageIcon(button1);
 		ic25.setImage(ic25.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic26 = new ImageIcon(button2);
+		ic26 = new ImageIcon(button2);
 		ic26.setImage(ic26.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic27 = new ImageIcon(button1);
+		ic27 = new ImageIcon(button1);
 		ic27.setImage(ic27.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
 		
-		ImageIcon ic28 = new ImageIcon("src/image/button9.png");
+		ImageIcon ic28 = new ImageIcon("src/image/button4.png");
 		ic28.setImage(ic28.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic29 = new ImageIcon("src/image/button10.png");
+		ImageIcon ic29 = new ImageIcon("src/image/button2.png");
 		ic29.setImage(ic29.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
-		ImageIcon ic30 = new ImageIcon("src/image/button9.png");
+		ImageIcon ic30 = new ImageIcon("src/image/button4.png");
 		ic30.setImage(ic30.getImage().getScaledInstance(80, 20, Image.SCALE_DEFAULT));
 		
 	
@@ -104,11 +109,31 @@ public class WordSetButton extends JPanel implements Observer,MouseListener, Mou
 		if (sou==pnLog4)
 		{
 			try {
-				process.changeModel(4);
+				process.basemodel.outputRecord();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				process.changeModel(10);
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			/*
+			if (button1.equals("src/image/button15.png"))
+			{
+				process.basemodel.judgeWord(ReadDat.testword);
+			}
+			if (button1.equals("src/image/button13.png"))
+			{
+				process.basemodel.nextWord();
+			}
+			if (button1.equals("src/image/button17.png"))
+			{
+				process.changeModel(10);
+			}
+			*/
 		}
 		else if(sou==pnLog5)
 		{
@@ -179,9 +204,34 @@ public class WordSetButton extends JPanel implements Observer,MouseListener, Mou
 		
 	}
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+	public void update(Observable o, Object arg) {
+		/*
+		if ((Integer)arg==0)
+		{
+			System.out.print("aaa\n");
+			button1="src/image/button15.png";
+			button2="src/image/button16.png";
 		
+			this.repaint();
+		}
+		if (((Integer)arg>=1)&&((Integer)arg<=2))
+		{
+			System.out.print("bbb\n");
+			button1="src/image/button13.png";
+			button2="src/image/button14.png";
+		
+			this.repaint();
+		}
+		if ((Integer)arg>=3)
+		{
+			System.out.print("ccc\n");
+			button1="src/image/button17.png";
+			button2="src/image/button18.png";
+		
+			this.repaint();
+		}
+		// TODO Auto-generated method stub
+		*/
 	}
 	
 

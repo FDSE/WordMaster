@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.dom4j.DocumentException;
+
 
 
 
@@ -95,11 +97,36 @@ public class WordNumButton extends JPanel implements MouseListener, MouseMotionL
 		Object sou = arg0.getSource();
         if (sou==pnLog4)
 		{
-			process.changeModel(6);
+        	if (process.basemodel.isNumber())
+        	{
+        		if (process.basemodel.setCountWord(Integer.parseInt(ReadDat.wordcount)))
+        		{
+			try {
+				process.changeModel(6);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        		}
+        		else
+        		{
+        			WordNumPanel.mention.setText("数字超过最大限度，默认为最大单词数");
+        			WordNumPanel.wordCountText.setText(""+(process.basemodel.sumnum-process.basemodel.currentwordindex));
+        		}
+        	}
+        	else
+        	{
+        		WordNumPanel.mention.setText("请输入一个正整数");
+        	}
 		}
 		else if(sou==pnLog5)
 		{
-			process.changeModel(3);
+			try {
+				process.changeModel(3);
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// TODO Auto-generated method stub
 		
