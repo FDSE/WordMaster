@@ -1,16 +1,16 @@
-1532
-7
-1525
-7
+1533
+3
+1530
+3
 0
-7
+3
 abandon v.抛弃，放弃#2
 abide v.遵守#2
 abolish v.废除，取消#2
-abridge v.省略，摘要#2
-abrogate v.取消，废除#2
-absorb v.吸收，专心于#2
-abuse v.滥用，谩骂#2
+abridge v.省略，摘要#0
+abrogate v.取消，废除#0
+absorb v.吸收，专心于#0
+abuse v.滥用，谩骂#0
 accede v.同意#0
 accelerate v.加速，加快#0
 acceleration v.加速，促进#0
@@ -677,6 +677,7 @@ grieve v.使悲伤，伤心#0
 grin v.露齿而笑#0
 grind v.碾碎，磨快，折磨#0
 grip v.,n.紧握，吸引#0
+groan v.,n.呻吟#0
 grope v.摸索，探索#0
 grow v.增长，成长，种植#0
 growl v.,n.咆哮，嗥叫#0

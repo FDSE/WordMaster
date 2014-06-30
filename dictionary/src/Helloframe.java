@@ -25,13 +25,13 @@ import com.sun.awt.AWTUtilities.*;
 
 public class Helloframe extends JFrame implements Observer,MouseListener, MouseMotionListener{
 
-	WordStoreButton wordstorebutton;
-	WordStorePanel wordstorepanel;
+	WordStoreController wordstorebutton;
+	WordStoreView wordstorepanel;
 	JPanel pnMidR=null;
 	private Point loc = null;    
 	private Point tmp = null;    
 	private boolean isDragged = false;
-	ImagePanel impn = null;
+	ImageView impn = null;
 	ProcessModel process=null;
 	JPanel pnTop = null;
 	
@@ -54,7 +54,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 	JPanel pnMid = null;
 	JLabel lbAccount = null;
 	
-	ImagePanel pnBelow = null;
+	ImageView pnBelow = null;
 	
 	JPanel pnLog = null;
 	CardLayout cardLog = null;
@@ -76,11 +76,11 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 	JLabel lb16, lb17, lb18;
 	
 	
-	ImagePanel pnLin = null;
+	ImageView pnLin = null;
 	JPanel iptx = null;
 	JTextField jtf = null;
 	
-	ImagePanel pnLin2 = null;
+	ImageView pnLin2 = null;
 	JPasswordField jpsw = null;
 	
 	JLabel lbdown = null;
@@ -97,7 +97,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		Image im2 = new ImageIcon("src/image/noon.jpg").getImage();
 		Image im3 = new ImageIcon("src/image/1.jpg").getImage();
 		Image im4 = new ImageIcon("src/image/3.jpg").getImage();
-		impn = new ImagePanel(im3);
+		impn = new ImageView(im3);
 		impn.setLayout(new BorderLayout());
 		
 		this.add(impn);
@@ -262,7 +262,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		pnU.add(pntx);
 		
 		
-		pnLin = new ImagePanel(new ImageIcon("src/image/inputbox.png").getImage());
+		pnLin = new ImageView(new ImageIcon("src/image/inputbox.png").getImage());
 		pnLin.addMouseListener(this);
 		pnLin.setLayout(new FlowLayout(FlowLayout.CENTER, 3, 3));
 		
@@ -294,7 +294,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		pnps.setBackground(Color.yellow);
 		pnU.add(pnps);
 		
-		pnLin2 = new ImagePanel(new ImageIcon("src/image/inputbox.png").getImage());
+		pnLin2 = new ImageView(new ImageIcon("src/image/inputbox.png").getImage());
 		pnLin2.setLayout(new FlowLayout(FlowLayout.CENTER, 3, 3));
 		
 		JPanel ipps = new JPanel();
@@ -323,7 +323,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		
 		
 		Image imBelow = new ImageIcon("//src/image/below.png").getImage();
-		pnBelow = new ImagePanel(imBelow);
+		pnBelow = new ImageView(imBelow);
 		pnBelow.setLayout(new BorderLayout(0, 20));
 		
 		P=new JPanel(new FlowLayout(FlowLayout.CENTER,0,5));
@@ -509,9 +509,9 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		{
 			this.setSize(500, 450);
 			impn.setIm(new ImageIcon("src/image/7.jpg").getImage());
-			wordstorepanel=new WordStorePanel();
+			wordstorepanel=new WordStoreView();
 			wordstorepanel.setOpaque(false);
-			wordstorebutton=new WordStoreButton(process);
+			wordstorebutton=new WordStoreController(process);
 			wordstorebutton.setOpaque(false);
 			P.removeAll();
 			pnMid.removeAll();
@@ -543,12 +543,12 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 		   pnMid.removeAll();
 		   try {
 		    
-			pnMid.add(new WordStatisticPanel(ReadDat.letter));
+			pnMid.add(new WordStatisticView(ReadDat.letter));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		   P.add(new WordStatisticButton(process));
+		   P.add(new WordStatisticController(process));
 		   pnMid.validate();
 		   P.validate();
 		   this.repaint();
@@ -569,8 +569,8 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			impn.setIm(new ImageIcon("src/image/9.jpg").getImage());
 			P.removeAll();
 			pnMid.removeAll();
-			pnMid.add(new WordSetPanel());
-			P.add(new WordSetButton(process));
+			pnMid.add(new WordSetView());
+			P.add(new WordSetController(process));
 			P.validate();
 			pnMid.validate();
 			this.repaint();
@@ -581,7 +581,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			impn.setIm(new ImageIcon("src/image/11.jpg").getImage());
 			P.removeAll();
 			pnMid.removeAll();
-			pnMid.add(new WordProcessPanel(process));
+			pnMid.add(new WordProcessView(process));
 			P.validate();
 			pnMid.validate();
 			this.repaint();
@@ -591,8 +591,8 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			impn.setIm(new ImageIcon("src/image/10.jpg").getImage());
 			P.removeAll();
 			pnMid.removeAll();
-			pnMid.add(new WordNumPanel(process));
-			P.add(new WordNumButton(process));
+			pnMid.add(new WordNumView(process));
+			P.add(new WordNumController(process));
 			P.validate();
 			pnMid.validate();
 			this.repaint();
@@ -604,8 +604,8 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			P.removeAll();
 			pnMid.removeAll();
 			process.basemodel.setWordNum();
-			pnMid.add(new WordRecitePanel(process));
-			P.add(new WordReciteButton(process));
+			pnMid.add(new WordReciteView(process));
+			P.add(new WordReciteController(process));
 			P.validate();
 			pnMid.validate();
 			this.repaint();
@@ -618,7 +618,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			//pnMid.removeAll();
 			//process.basemodel.setWordNum();
 			//pnMid.add(new WordRecitePanel(process));
-			P.add(new WordReciteButton2(process));
+			P.add(new WordReciteController2(process));
 			P.validate();
 			//pnMid.validate();
 			this.repaint();
@@ -630,7 +630,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			//pnMid.removeAll();
 			//process.basemodel.setWordNum();
 			//pnMid.add(new WordRecitePanel(process));
-			P.add(new WordReciteButton(process));
+			P.add(new WordReciteController(process));
 			P.validate();
 			//pnMid.validate();
 			this.repaint();
@@ -642,7 +642,7 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			//pnMid.removeAll();
 			//process.basemodel.setWordNum();
 			//pnMid.add(new WordRecitePanel(process));
-			P.add(new WordReciteButton3(process));
+			P.add(new WordReciteController3(process));
 			P.validate();
 			//pnMid.validate();
 			this.repaint();
@@ -654,9 +654,9 @@ public class Helloframe extends JFrame implements Observer,MouseListener, MouseM
 			//pnMid.removeAll();
 			//process.basemodel.setWordNum();
 			//pnMid.add(new WordRecitePanel(process));
-			P.add(new WordStatisticButton(process));
+			P.add(new WordStatisticController(process));
 			pnMid.removeAll();
-			pnMid.add(new WordLastPanel(process));
+			pnMid.add(new WordLastView(process));
 			P.validate();
 			pnMid.validate();
 			//pnMid.validate();
